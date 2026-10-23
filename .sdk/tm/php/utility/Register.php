@@ -1,0 +1,72 @@
+<?php
+declare(strict_types=1);
+
+// AitrainingJobs SDK utility registration
+
+require_once __DIR__ . '/../core/UtilityType.php';
+require_once __DIR__ . '/Clean.php';
+require_once __DIR__ . '/Done.php';
+require_once __DIR__ . '/MakeError.php';
+require_once __DIR__ . '/FeatureAdd.php';
+require_once __DIR__ . '/FeatureHook.php';
+require_once __DIR__ . '/FeatureInit.php';
+require_once __DIR__ . '/Fetcher.php';
+require_once __DIR__ . '/MakeFetchDef.php';
+require_once __DIR__ . '/MakeContext.php';
+require_once __DIR__ . '/MakeOptions.php';
+require_once __DIR__ . '/MakeRequest.php';
+require_once __DIR__ . '/MakeResponse.php';
+require_once __DIR__ . '/MakeResult.php';
+require_once __DIR__ . '/MakePoint.php';
+require_once __DIR__ . '/MakeSpec.php';
+require_once __DIR__ . '/MakeUrl.php';
+require_once __DIR__ . '/Param.php';
+require_once __DIR__ . '/PrepareAuth.php';
+require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
+require_once __DIR__ . '/PrepareHeaders.php';
+require_once __DIR__ . '/PrepareMethod.php';
+require_once __DIR__ . '/PrepareParams.php';
+require_once __DIR__ . '/PreparePath.php';
+require_once __DIR__ . '/PrepareQuery.php';
+require_once __DIR__ . '/ResultBasic.php';
+require_once __DIR__ . '/ResultBody.php';
+require_once __DIR__ . '/ResultHeaders.php';
+require_once __DIR__ . '/TransformRequest.php';
+require_once __DIR__ . '/TransformResponse.php';
+
+AitrainingJobsUtility::setRegistrar(function (AitrainingJobsUtility $u): void {
+    $u->clean = [AitrainingJobsClean::class, 'call'];
+    $u->clean_add = [AitrainingJobsClean::class, 'add'];
+    $u->clean_explain = [AitrainingJobsDone::class, 'clean_explain'];
+    $u->done = [AitrainingJobsDone::class, 'call'];
+    $u->make_error = [AitrainingJobsMakeError::class, 'call'];
+    $u->feature_add = [AitrainingJobsFeatureAdd::class, 'call'];
+    $u->feature_hook = [AitrainingJobsFeatureHook::class, 'call'];
+    $u->feature_init = [AitrainingJobsFeatureInit::class, 'call'];
+    $u->fetcher = [AitrainingJobsFetcher::class, 'call'];
+    $u->make_fetch_def = [AitrainingJobsMakeFetchDef::class, 'call'];
+    $u->make_context = [AitrainingJobsMakeContext::class, 'call'];
+    $u->make_options = [AitrainingJobsMakeOptions::class, 'call'];
+    $u->make_request = [AitrainingJobsMakeRequest::class, 'call'];
+    $u->make_response = [AitrainingJobsMakeResponse::class, 'call'];
+    $u->make_result = [AitrainingJobsMakeResult::class, 'call'];
+    $u->make_point = [AitrainingJobsMakePoint::class, 'call'];
+    $u->make_spec = [AitrainingJobsMakeSpec::class, 'call'];
+    $u->make_url = [AitrainingJobsMakeUrl::class, 'call'];
+    $u->param = [AitrainingJobsParam::class, 'call'];
+    $u->prepare_auth = [AitrainingJobsPrepareAuth::class, 'call'];
+    $u->prepare_body = [AitrainingJobsPrepareBody::class, 'call'];
+    $u->prepare_headers = [AitrainingJobsPrepareHeaders::class, 'call'];
+    $u->prepare_method = [AitrainingJobsPrepareMethod::class, 'call'];
+    $u->prepare_params = [AitrainingJobsPrepareParams::class, 'call'];
+    $u->prepare_path = [AitrainingJobsPreparePath::class, 'call'];
+    $u->prepare_query = [AitrainingJobsPrepareQuery::class, 'call'];
+    $u->graphql_body = [AitrainingJobsGraphql::class, 'body'];
+    $u->graphql_errors = [AitrainingJobsGraphql::class, 'errors'];
+    $u->result_basic = [AitrainingJobsResultBasic::class, 'call'];
+    $u->result_body = [AitrainingJobsResultBody::class, 'call'];
+    $u->result_headers = [AitrainingJobsResultHeaders::class, 'call'];
+    $u->transform_request = [AitrainingJobsTransformRequest::class, 'call'];
+    $u->transform_response = [AitrainingJobsTransformResponse::class, 'call'];
+});

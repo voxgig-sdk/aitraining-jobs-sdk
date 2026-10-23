@@ -1,0 +1,30 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      auth: false
+      contact: {
+        email: "hello@aitraining.jobs"
+        name: "AITraining.jobs"
+        url: "https://aitraining.jobs/data"
+      }
+      description: "Free, read-only data and job search on AI training jobs (paid work training, evaluating and labeling data for AI models), measured daily from the hiring platforms' own public job feeds (roles.json lists every platform it counts). No key, CORS enabled. Field reference: https://aitraining.jobs/data . License CC BY 4.0: credit AITraining.jobs and cite the date in temporal_coverage. The same data is available to AI assistants as a remote MCP server at https://aitraining.jobs/api/mcp . Non-JSON endpoints (/pay.csv) were removed on 2026-10-23: the SDK reads JSON."
+      license: {
+        identifier: "CC-BY-4.0"
+        name: "CC BY 4.0"
+      }
+      servers: [
+        {
+          url: "https://aitraining.jobs"
+        }
+      ]
+      summary: "AI training job market data: open roles by kind of work and platform, and advertised hourly pay."
+      title: "AITraining.jobs open data"
+      version: "1.0.0"
+      website: "https://aitraining.jobs/data"
+    }
+  }
+}
+

@@ -1,0 +1,69 @@
+{
+  "existing": {
+    "role": {
+      "ROLE00": {
+        "description": "s6e",
+        "license": "s6f",
+        "measurement_technique": "s70",
+        "name": "s71",
+        "open_by_platform": [],
+        "open_by_work_type": [],
+        "recent_market_momentum": "s74",
+        "source": "s75",
+        "temporal_coverage": "s76",
+        "totals": {},
+        "updated": "s78"
+      },
+      "ROLE01": {
+        "description": "sdc",
+        "license": "sdd",
+        "measurement_technique": "sde",
+        "name": "sdf",
+        "open_by_platform": [],
+        "open_by_work_type": [],
+        "recent_market_momentum": "se2",
+        "source": "se3",
+        "temporal_coverage": "se4",
+        "totals": {},
+        "updated": "se6"
+      },
+      "ROLE02": {
+        "description": "s14a",
+        "license": "s14b",
+        "measurement_technique": "s14c",
+        "name": "s14d",
+        "open_by_platform": [],
+        "open_by_work_type": [],
+        "recent_market_momentum": "s150",
+        "source": "s151",
+        "temporal_coverage": "s152",
+        "totals": {},
+        "updated": "s154"
+      }
+    }
+  },
+  "new": {
+    "role": {
+      "role_ref01": {
+        "description": "s1b8",
+        "license": "s1b9",
+        "measurement_technique": "s1ba",
+        "name": "s1bb",
+        "open_by_platform": [],
+        "open_by_work_type": [],
+        "recent_market_momentum": "s1be",
+        "source": "s1bf",
+        "temporal_coverage": "s1c0",
+        "totals": {},
+        "updated": "s1c2"
+      }
+    }
+  },
+  "requests": {
+    "GET /roles.json": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

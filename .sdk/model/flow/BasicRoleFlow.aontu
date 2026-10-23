@@ -1,0 +1,22 @@
+# BasicRoleFlow
+
+main: kit: flow: BasicRoleFlow:
+{
+  entity: "role",
+  kind: "basic",
+  name: "BasicRoleFlow",
+  step: [
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "role_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicRoleFlow"
+}

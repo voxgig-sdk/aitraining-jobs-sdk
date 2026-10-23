@@ -1,0 +1,22 @@
+{
+  "files": [
+    "SUMMARY.md"
+  ],
+  "config": ".sdk/doc/qa/vale.ini",
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "Free, read-only data and job search on AI training jobs (paid work training, evaluating and labeling data for AI models), measured daily from the hiring platforms&#39; own public job feeds (roles.json lists every platform it counts). No key, CORS enabled. Field reference: https://aitraining.jobs/data . License CC BY 4.0: credit AITraining.jobs and cite the date in `temporal_coverage`. The same data is available to AI assistants as a remote MCP server at https://aitraining.jobs/api/mcp . Non-JSON endpoints (/pay.csv) were removed on 2026-10-23: the SDK reads JSON.",
+      "Kind of work",
+      "Platform name",
+      "The day the figures describe. Cite this date.",
+      "The matching roles, newest first unless sorted otherwise",
+      "The open-roles document for the day in `temporal_coverage`",
+      "The page that renders the same numbers.",
+      "The pay document for the day in `temporal_coverage`",
+      "The role&#39;s advertised pay, else its platform&#39;s typical band (said so in the text)",
+      "The role&#39;s page on AITraining.jobs, where the user applies",
+      "When the job feeds were last read (UTC)."
+    ]
+  }
+}

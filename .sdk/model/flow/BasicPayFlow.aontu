@@ -1,0 +1,22 @@
+# BasicPayFlow
+
+main: kit: flow: BasicPayFlow:
+{
+  entity: "pay",
+  kind: "basic",
+  name: "BasicPayFlow",
+  step: [
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "pay_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicPayFlow"
+}

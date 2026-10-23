@@ -1,0 +1,72 @@
+{
+  "existing": {
+    "job": {
+      "JOB00": {
+        "first_seen_at": "s78",
+        "id": "JOB00",
+        "kind": "s7a",
+        "kind_slug": "s7b",
+        "listed": "s7c",
+        "location": "s7d",
+        "pay": "s7e",
+        "platform": "s7f",
+        "platform_slug": "s80",
+        "remote": false,
+        "title": "s82",
+        "url": "s83"
+      },
+      "JOB01": {
+        "first_seen_at": "sf0",
+        "id": "JOB01",
+        "kind": "sf2",
+        "kind_slug": "sf3",
+        "listed": "sf4",
+        "location": "sf5",
+        "pay": "sf6",
+        "platform": "sf7",
+        "platform_slug": "sf8",
+        "remote": false,
+        "title": "sfa",
+        "url": "sfb"
+      },
+      "JOB02": {
+        "first_seen_at": "s168",
+        "id": "JOB02",
+        "kind": "s16a",
+        "kind_slug": "s16b",
+        "listed": "s16c",
+        "location": "s16d",
+        "pay": "s16e",
+        "platform": "s16f",
+        "platform_slug": "s170",
+        "remote": false,
+        "title": "s172",
+        "url": "s173"
+      }
+    }
+  },
+  "new": {
+    "job": {
+      "job_ref01": {
+        "first_seen_at": "s1e0",
+        "kind": "s1e2",
+        "kind_slug": "s1e3",
+        "listed": "s1e4",
+        "location": "s1e5",
+        "pay": "s1e6",
+        "platform": "s1e7",
+        "platform_slug": "s1e8",
+        "remote": false,
+        "title": "s1ea",
+        "url": "s1eb"
+      }
+    }
+  },
+  "requests": {
+    "GET /api/v1/jobs": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

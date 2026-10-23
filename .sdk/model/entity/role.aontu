@@ -1,0 +1,122 @@
+# Entity: role
+
+main: kit: entity: role: {
+
+  alias: field: {}
+
+  fields: {
+    description: {
+      h: "Description"
+      n: "description"
+      r: false
+      t: "`$STRING`"
+    }
+    license: {
+      fo: "uri"
+      h: "License"
+      n: "license"
+      r: false
+      t: "`$STRING`"
+    }
+    measurement_technique: {
+      h: "Measurement Technique"
+      n: "measurement_technique"
+      r: false
+      t: "`$STRING`"
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: false
+      t: "`$STRING`"
+    }
+    open_by_platform: {
+      h: "Open By Platform"
+      n: "open_by_platform"
+      r: false
+      t: "`$ARRAY`"
+    }
+    open_by_work_type: {
+      h: "Open By Work Type"
+      n: "open_by_work_type"
+      r: false
+      t: "`$ARRAY`"
+    }
+    recent_market_momentum: {
+      h: "Recent Market Momentum"
+      n: "recent_market_momentum"
+      r: false
+      t: [
+        "`$ONE`"
+        [
+          "`$OBJECT`"
+          "`$NULL`"
+        ]
+      ]
+    }
+    source: {
+      fo: "uri"
+      h: "Source"
+      n: "source"
+      r: false
+      sh: "The page that renders the same numbers."
+      t: "`$STRING`"
+    }
+    temporal_coverage: {
+      fo: "date"
+      h: "Temporal Coverage"
+      n: "temporal_coverage"
+      r: false
+      sh: "The day the figures describe."
+      t: "`$STRING`"
+    }
+    totals: {
+      h: "Totals"
+      n: "totals"
+      r: false
+      t: "`$OBJECT`"
+    }
+    updated: {
+      fo: "date-time"
+      h: "Updated"
+      n: "updated"
+      r: false
+      sh: "When the job feeds were last read (UTC)."
+      t: "`$STRING`"
+    }
+  }
+
+  name: "role"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /roles.json"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/roles.json"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "roles.json"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

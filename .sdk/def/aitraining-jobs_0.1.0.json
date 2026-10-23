@@ -1,0 +1,566 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "AITraining.jobs open data",
+    "version": "1.0.0",
+    "summary": "AI training job market data: open roles by kind of work and platform, and advertised hourly pay.",
+    "description": "Free, read-only data and job search on AI training jobs (paid work training, evaluating and labeling data for AI models), measured daily from the hiring platforms' own public job feeds (roles.json lists every platform it counts). No key, CORS enabled. Field reference: https://aitraining.jobs/data . License CC BY 4.0: credit AITraining.jobs and cite the date in temporal_coverage. The same data is available to AI assistants as a remote MCP server at https://aitraining.jobs/api/mcp . Non-JSON endpoints (/pay.csv) were removed on 2026-10-23: the SDK reads JSON.",
+    "contact": {
+      "name": "AITraining.jobs",
+      "url": "https://aitraining.jobs/data",
+      "email": "hello@aitraining.jobs"
+    },
+    "license": {
+      "name": "CC BY 4.0",
+      "identifier": "CC-BY-4.0"
+    }
+  },
+  "externalDocs": {
+    "description": "Field reference and terms",
+    "url": "https://aitraining.jobs/data"
+  },
+  "servers": [
+    {
+      "url": "https://aitraining.jobs"
+    }
+  ],
+  "paths": {
+    "/roles.json": {
+      "get": {
+        "operationId": "getOpenRoles",
+        "summary": "Open roles by kind of work and platform",
+        "description": "How many AI training roles are open now, how many were first listed in the last 7 days and in each recent ISO week, and open roles by kind of work and by platform, with pay where at least three platforms advertise a rate. Aggregates only: no individual roles.",
+        "responses": {
+          "200": {
+            "description": "The open-roles document for the day in temporal_coverage.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RolesDocument"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pay.json": {
+      "get": {
+        "operationId": "getPayByWorkType",
+        "summary": "Advertised hourly pay by kind of work",
+        "description": "Median and typical (25th to 75th percentile) advertised hourly pay by kind of work, for each kind whose rate at least three platforms advertise.",
+        "responses": {
+          "200": {
+            "description": "The pay document for the day in temporal_coverage.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayDocument"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/jobs": {
+      "get": {
+        "operationId": "searchJobs",
+        "summary": "Search open AI training jobs",
+        "description": "Open AI training roles from about 60 platforms (Mercor, micro1, Outlier, Alignerr...) with pay and a link to apply on AITraining.jobs. Every filter is optional. Show each role's url to the user.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "description": "Keywords matched against role titles, e.g. physician, Python, Spanish, lawyer.",
+            "schema": {
+              "type": "string",
+              "maxLength": 120
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "required": false,
+            "description": "Kind of work: one slug, or several separated by commas.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "rlhf-eval",
+                "coding",
+                "stem-math",
+                "domain-expert",
+                "agentic-eval",
+                "data-labeling",
+                "robotics-data",
+                "multilingual",
+                "audio-speech",
+                "writing",
+                "red-teaming",
+                "research-studies"
+              ]
+            }
+          },
+          {
+            "name": "platform",
+            "in": "query",
+            "required": false,
+            "description": "Platform slug, e.g. mercor, micro1, outlier-scale-ai, alignerr.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "description": "ISO 3166-1 alpha-2 code: only roles open to applicants in that country, e.g. US, IN, BR.",
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 2
+            }
+          },
+          {
+            "name": "min_hourly_usd",
+            "in": "query",
+            "required": false,
+            "description": "Only roles whose advertised hourly ceiling reaches this many US dollars.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000
+            }
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "required": false,
+            "description": "Only roles first listed on or after this day, YYYY-MM-DD.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "description": "recent (newest first, default), pay (highest pay first) or balanced.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "recent",
+                "pay",
+                "balanced"
+              ],
+              "default": "recent"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "How many roles, 1 to 50.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "Skip this many roles, for the next page.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "src",
+            "in": "query",
+            "required": false,
+            "description": "Your app's name as a short slug; every role link carries it.",
+            "schema": {
+              "type": "string",
+              "maxLength": 40
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The matching roles, newest first unless sorted otherwise.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobsResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "A filter cannot be answered (an unknown kind, platform or country); error says why.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DocumentInfo": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string",
+            "format": "uri",
+            "description": "The page that renders the same numbers."
+          },
+          "license": {
+            "type": "string",
+            "format": "uri"
+          },
+          "measurement_technique": {
+            "type": "string"
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the job feeds were last read (UTC)."
+          },
+          "temporal_coverage": {
+            "type": "string",
+            "format": "date",
+            "description": "The day the figures describe. Cite this date."
+          }
+        }
+      },
+      "PayBand": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "examples": [
+              "USD"
+            ]
+          },
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "examples": [
+              "per hour"
+            ]
+          },
+          "median": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "typical_low": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "25th percentile of advertised rates."
+          },
+          "typical_high": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "75th percentile of advertised rates."
+          },
+          "rate_samples": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Distinct advertised rates measured, after removing relistings."
+          },
+          "platforms": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Platforms advertising those rates."
+          }
+        }
+      },
+      "PayDocument": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DocumentInfo"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "pay_by_work_type": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/PayBand"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "slug": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "open_total": {
+                          "type": "integer",
+                          "description": "Open roles of that kind."
+                        },
+                        "unpriced": {
+                          "type": "integer",
+                          "description": "Open roles of that kind that state no rate."
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "RolesDocument": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DocumentInfo"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "totals": {
+                "type": "object",
+                "properties": {
+                  "open_roles": {
+                    "type": "integer"
+                  },
+                  "platforms_live": {
+                    "type": "integer"
+                  },
+                  "new_last_7d": {
+                    "type": "integer"
+                  },
+                  "new_last_7d_measurement": {
+                    "type": "string"
+                  }
+                }
+              },
+              "recent_market_momentum": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "unit": {
+                    "type": "string"
+                  },
+                  "measurement": {
+                    "type": "string"
+                  },
+                  "avg_new_roles_per_week": {
+                    "type": "number"
+                  },
+                  "weeks_measured": {
+                    "type": "integer"
+                  },
+                  "weekly": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "week_start": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "new_roles": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "open_by_work_type": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/PayBand"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "slug": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "open_count": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "open_by_platform": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "slug": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "open_count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "PublicRole": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string",
+            "description": "Platform name"
+          },
+          "platform_slug": {
+            "type": "string"
+          },
+          "kind": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Kind of work"
+          },
+          "kind_slug": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "pay": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The role's advertised pay, else its platform's typical band (said so in the text)"
+          },
+          "location": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "remote": {
+            "type": "boolean"
+          },
+          "listed": {
+            "type": "string",
+            "format": "date"
+          },
+          "first_seen_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "The role's page on AITraining.jobs, where the user applies"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "platform",
+          "platform_slug",
+          "remote",
+          "listed",
+          "first_seen_at",
+          "url"
+        ]
+      },
+      "JobsResult": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "How many open roles match"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicRole"
+            }
+          },
+          "more": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "roles"
+        ]
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    }
+  }
+}

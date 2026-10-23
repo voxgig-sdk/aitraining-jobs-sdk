@@ -1,0 +1,57 @@
+{
+  "existing": {
+    "pay": {
+      "PAY00": {
+        "description": "s50",
+        "license": "s51",
+        "measurement_technique": "s52",
+        "name": "s53",
+        "pay_by_work_type": [],
+        "source": "s55",
+        "temporal_coverage": "s56",
+        "updated": "s57"
+      },
+      "PAY01": {
+        "description": "sa0",
+        "license": "sa1",
+        "measurement_technique": "sa2",
+        "name": "sa3",
+        "pay_by_work_type": [],
+        "source": "sa5",
+        "temporal_coverage": "sa6",
+        "updated": "sa7"
+      },
+      "PAY02": {
+        "description": "sf0",
+        "license": "sf1",
+        "measurement_technique": "sf2",
+        "name": "sf3",
+        "pay_by_work_type": [],
+        "source": "sf5",
+        "temporal_coverage": "sf6",
+        "updated": "sf7"
+      }
+    }
+  },
+  "new": {
+    "pay": {
+      "pay_ref01": {
+        "description": "s140",
+        "license": "s141",
+        "measurement_technique": "s142",
+        "name": "s143",
+        "pay_by_work_type": [],
+        "source": "s145",
+        "temporal_coverage": "s146",
+        "updated": "s147"
+      }
+    }
+  },
+  "requests": {
+    "GET /pay.json": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}
